@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Simple exercise in AJAJ</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <header>
+      <h1 class="headline">What do you want to read about today?</h1>
+
+      <div class="search">
+        <form id="search-form">
+          <label for="search-field">What to search for?</label>
+          <input type="text" name="keyword" id="search-field" placeholder="e.g. Platipus">
+          <input type="button" value="Submit" id="submit-btn">
+        </form>
+      </div>
+    </header>
+
+    <div class="results-container">
+      <!-- AJAX responses go here -->
+    </div>
+
+    <script src="app.js"></script>
+    <script src="jquery.js"></script>
+
+  </body>
+</html>
