@@ -10,3 +10,14 @@ body {
 header {
   padding: 30px 0;
 }
+
+.results-container {
+  width: 600px;
+  margin: auto;
+}
+
+.results-container img {
+  width: 100%;
+  object-fit: contain;
+}
+
