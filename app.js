@@ -9,6 +9,7 @@ window.onload = function () {
     let keyword = searchField.value;
     fetchUnsplash(keyword);
     fetchNews(keyword);
+    fetchWiki(keyword);
   });
 };
 
@@ -63,4 +64,21 @@ function listArticles () {
     let article = articles[i];
     articleList.innerHTML += `<li><a href=${article.url}>${article.title}</a></li>`;
   }
+}
+
+function fetchWiki (keyword) {
+  var url = `https://en.wikipedia.org/w/api.php?action=opensearch&search=${keyword}&format=json&callback=?`;
+  $.ajax({
+    url: url,
+    type: "GET",
+    dataType: "json",
+    success: addWikiSnippet
+  });
+}
+
+function addWikiSnippet () {
+  let data = JSON.parse(this.responseText);
+  let title = data[1][0];
+  let description = data[2][0];
+  let link = data[3][0];
 }
