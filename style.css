@@ -2,13 +2,13 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  text-align: center;
   width: 1000px;
   margin: 0 auto;
 }
 
 header {
   padding: 30px 0;
+  text-align: center;
 }
 
 .results-container {

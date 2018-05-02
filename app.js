@@ -40,23 +40,37 @@ function addPhoto () {
   }
 }
 
+// the News API require a JSONP data type to pass CORS restrictions
+
+// function fetchNews (keyword) {
+//   const newsRequest = new XMLHttpRequest();
+//   const apiKey = 'eadb5d437c064138a8fac60e25a1c51f';
+//   const requestURL = `http://newsapi.org/v2/everything?` +
+//                      `q=${keyword}&` +
+//                      `apiKey=${apiKey}`;
+//   newsRequest.open('GET', requestURL);
+//   newsRequest.onload = listArticles;
+//   newsRequest.send();
+// }
+
 function fetchNews (keyword) {
-  const newsRequest = new XMLHttpRequest();
   const apiKey = 'eadb5d437c064138a8fac60e25a1c51f';
-  // added a proxy for request because of CORS limitations (unset headers)
-  const requestURL = `http://192.168.0.104:8080/v2/everything?` +
+  const requestURL = `http://newsapi.org/v2/everything?` +
                      `q=${keyword}&` +
                      `apiKey=${apiKey}`;
-  newsRequest.open('GET', requestURL);
-  newsRequest.onload = listArticles;
-  newsRequest.send();
+  $.ajax({
+    url: requestURL,
+    type: "GET",
+    dataType: "json",
+    success: listArticles
+  });
 }
 
-function listArticles () {
+
+function listArticles (responseJSON) {
   const articlesContainer = document.querySelector('.articles-container');
   articlesContainer.innerHTML = '';
-  let data = JSON.parse(this.responseText);
-  let articles = data.articles;
+  let articles = responseJSON.articles;
   articlesContainer.innerHTML += '<ul class="article-list"></ul>';
   const articleList = document.querySelector('.article-list');
   articleList.innerHTML = '';
@@ -67,18 +81,26 @@ function listArticles () {
 }
 
 function fetchWiki (keyword) {
-  var url = `https://en.wikipedia.org/w/api.php?action=opensearch&search=${keyword}&format=json&callback=?`;
+  const requestURL = `https://en.wikipedia.org/w/api.php?` +
+            `action=opensearch&` +
+            `search=${keyword}&` +
+            `format=json&` +
+            `callback=?`;
   $.ajax({
-    url: url,
+    url: requestURL,
     type: "GET",
     dataType: "json",
     success: addWikiSnippet
   });
 }
 
-function addWikiSnippet () {
-  let data = JSON.parse(this.responseText);
-  let title = data[1][0];
-  let description = data[2][0];
-  let link = data[3][0];
+function addWikiSnippet (responseJSON) {
+  const wikiContainer = $('.wiki-container');
+  wikiContainer.html('');
+  let title = responseJSON[1][0];
+  let description = responseJSON[2][0];
+  let link = responseJSON[3][0];
+  wikiContainer.append(`<h3>${title}</h3>`);
+  wikiContainer.append(`<p><a href="${link}">Wikipedia</a></p>`);
+  wikiContainer.append(`<p>${description}</p>`);
 }
