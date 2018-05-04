@@ -80,18 +80,31 @@ function listArticles (responseJSON) {
   }
 }
 
+// function fetchWiki (keyword) {
+//   const requestURL = `https://en.wikipedia.org/w/api.php?` +
+//             `action=opensearch&` +
+//             `search=${keyword}&` +
+//             `format=json&` +
+//             `callback=?`;
+//   $.ajax({
+//     url: requestURL,
+//     type: "GET",
+//     dataType: "json",
+//     success: addWikiSnippet
+//   });
+// }
+
+// Will convert the jQuery AJAX request to one using the Fetch API
+
 function fetchWiki (keyword) {
   const requestURL = `https://en.wikipedia.org/w/api.php?` +
-            `action=opensearch&` +
-            `search=${keyword}&` +
-            `format=json&` +
-            `callback=?`;
-  $.ajax({
-    url: requestURL,
-    type: "GET",
-    dataType: "json",
-    success: addWikiSnippet
-  });
+                     `action=opensearch&` +
+                     `search=${keyword}&` +
+                     `format=json&` +
+                     `callback=?`;
+  fetch(requestURL)
+  .then( response => response.json() )
+  .then(addWikiSnippet);
 }
 
 function addWikiSnippet (responseJSON) {
