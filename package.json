@@ -4,6 +4,7 @@
   "description": "This will be an exercise in handling async requests in JS using 3 different approaches:",
   "dependencies": {
     "connect": "^3.6.6",
+    "cors": "^2.8.4",
     "server-static": "^2.0.5"
   }
 }

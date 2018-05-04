@@ -98,22 +98,34 @@ function listArticles (responseJSON) {
 
 function fetchWiki (keyword) {
   const requestURL = `https://en.wikipedia.org/w/api.php?` +
+                     `origin=*&` +
                      `action=opensearch&` +
                      `search=${keyword}&` +
                      `format=json&` +
                      `callback=?`;
+  // fetch(requestURL, {
+  //   mode: 'cors',
+  //   headers: {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json',
+  //     'Access-Control-Allow-Origin': ''
+  //   }
+  // })
   fetch(requestURL)
   .then( response => response.json() )
-  .then(addWikiSnippet);
+  .then(addWikiSnippet)
+  .catch()
 }
 
 function addWikiSnippet (responseJSON) {
-  const wikiContainer = $('.wiki-container');
-  wikiContainer.html('');
+  const wikiContainer = document.querySelector('.wiki-container');
+  wikiContainer.innerHTML = '';
+  responseJSON = responseJSON.splice(0, 3);
   let title = responseJSON[1][0];
   let description = responseJSON[2][0];
   let link = responseJSON[3][0];
-  wikiContainer.append(`<h3>${title}</h3>`);
-  wikiContainer.append(`<p><a href="${link}">Wikipedia</a></p>`);
-  wikiContainer.append(`<p>${description}</p>`);
+  let htmlContent = `<h3>${title}</h3>` +
+                    `<p><a href="${link}">Wikipedia</a></p>` +
+                    `<p>${description}</p>`;
+  wikiContainer.innerHTML += hrmlContent;
 }
