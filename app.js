@@ -7,9 +7,13 @@ window.onload = function () {
   searchForm.addEventListener('submit', function (event) {
     event.preventDefault();
     let keyword = searchField.value;
-    fetchUnsplash(keyword);
-    fetchNews(keyword);
-    fetchWiki(keyword);
+    // fetchUnsplash(keyword);
+    // fetchNews(keyword);
+    // fetchWiki(keyword);
+    // Chain the AJAX calls for style feature (in fetchUnsplash)
+    fetchWiki(keyword)
+    .then(fetchNews)
+    .then(fetchUnsplash);
   });
 };
 
@@ -45,9 +49,13 @@ function addPhoto () {
                                `<p>${photoDescription}</p>` +
                                `<figcaption>${photoAuthor}</figcaption>` +
                                `</figure>`;
-    let links = document.querySelectorAll('a');
-    for (item of links) {
-      item.style.color = photoColor;
+    // after photo is loaded, change the color of all links to the one associated with Unsplash photo
+    const styleCSS = document.styleSheets[1];
+    const rules = styleCSS.cssRules || styleCSS.rules;
+    for (rule of rules) {
+      if (rule.selectorText == 'a') {
+        rule.style.color = photoColor;
+      }
     }
   } else {
     photoContainer.innerHTML = `<p>No results found</p>`;
@@ -80,6 +88,7 @@ function fetchNews (keyword) {
     dataType: "json",
     success: listArticles
   });
+  return new Promise((resolve, reject) => resolve(keyword));
 }
 
 
@@ -138,6 +147,7 @@ function fetchWiki (keyword) {
   fetch(requestURL)
   .then(response => response.text())
   .then(addWikiSnippet);
+  return new Promise((resolve, reject) => resolve(keyword));
 }
 
 function addWikiSnippet (responseJSON) {
