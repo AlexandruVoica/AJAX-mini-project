@@ -32,9 +32,23 @@ function addPhoto () {
   photoContainer.innerHTML = '';
   let data = JSON.parse(this.responseText);
   let photoURL = '';
+  let photoAuthor = '';
+  let photoDescription = '';
+  let photoColor = '';
   if (data.results.length > 0) {
     photoURL = data.results[0].urls.full;
-    photoContainer.innerHTML = `<img src="${photoURL}">`;
+    if (data.results[0].description) photoDescription = data.results[0].description;
+    photoAuthor = `by ${data.results[0].user.first_name} ${data.results[0].user.last_name}`;
+    photoColor = data.results[0].color;
+    photoContainer.innerHTML = `<figure>` +
+                               `<img src="${photoURL}">` +
+                               `<p>${photoDescription}</p>` +
+                               `<figcaption>${photoAuthor}</figcaption>` +
+                               `</figure>`;
+    let links = document.querySelectorAll('a');
+    for (item of links) {
+      item.style.color = photoColor;
+    }
   } else {
     photoContainer.innerHTML = `<p>No results found</p>`;
   }
@@ -134,7 +148,8 @@ function addWikiSnippet (responseJSON) {
   let title = responseJSON.data[1][indexOfDisplayedItem];
   let description = responseJSON.data[2][indexOfDisplayedItem];
   let link = responseJSON.data[3][indexOfDisplayedItem];
-  while (description == '') {
+  const descriptionToAvoid = 'may refer to';
+  while (description == '' || description.includes(descriptionToAvoid)) {
     indexOfDisplayedItem ++;
     title = responseJSON.data[1][indexOfDisplayedItem];
     description = responseJSON.data[2][indexOfDisplayedItem];

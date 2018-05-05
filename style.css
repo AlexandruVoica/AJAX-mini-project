@@ -31,12 +31,22 @@ p {
   margin-bottom: 0;
 }
 
+P:empty {
+  display: none;
+}
+
 h3, h4, h5 {
   margin-top: 10px;
 }
 
 a {
   text-decoration: none;
+}
+
+figure > figcaption,
+figure > p {
+  text-align: center;
+  font-size: 11px;
 }
 
 .wiki-container:empty {
