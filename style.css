@@ -4,6 +4,7 @@ body {
   justify-content: center;
   width: 1000px;
   margin: 0 auto;
+  font-family: 'Lato', sans-serif;
 }
 
 header {
@@ -19,5 +20,35 @@ header {
 .results-container img {
   width: 100%;
   object-fit: contain;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+h3, h4, h5 {
+  margin-top: 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.wiki-container:empty {
+  display: none;
+}
+
+.article-list li,
+.wiki-container {
+  padding: 10px;
+  margin: 10px 0;
+  -webkit-box-shadow: 5px 5px 20px 0px rgba(173,173,173,1);
+  -moz-box-shadow: 5px 5px 20px 0px rgba(173,173,173,1);
+  box-shadow: 5px 5px 20px 0px rgba(173,173,173,1);
 }
 

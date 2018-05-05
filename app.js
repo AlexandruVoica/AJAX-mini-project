@@ -56,7 +56,9 @@ function addPhoto () {
 function fetchNews (keyword) {
   const apiKey = 'eadb5d437c064138a8fac60e25a1c51f';
   const requestURL = `http://newsapi.org/v2/everything?` +
+                     `sources=cnn,buzzfeed,bbc-news&` +
                      `q=${keyword}&` +
+                     `sortBy=relevancy&` +
                      `apiKey=${apiKey}`;
   $.ajax({
     url: requestURL,
@@ -76,7 +78,15 @@ function listArticles (responseJSON) {
   articleList.innerHTML = '';
   for (let i = 0; i < 10; i++) {
     let article = articles[i];
-    articleList.innerHTML += `<li><a href=${article.url}>${article.title}</a></li>`;
+    let authorItem = '';
+    if (article.author && article.author != article.source.name) {
+      authorItem = `by ${article.author}`;
+    }
+    articleList.innerHTML += `<li>` +
+                             `<h4><a href=${article.url}>${article.title}</a></h4>` +
+                             `<p style="display: block">${authorItem} on ${article.source.name}</p>` +
+                             `<p>${article.description}</p>` +
+                             `</li>`;
   }
 }
 
@@ -112,20 +122,26 @@ function fetchWiki (keyword) {
   //   }
   // })
   fetch(requestURL)
-  .then( response => response.json() )
-  .then(addWikiSnippet)
-  .catch()
+  .then(response => response.text())
+  .then(addWikiSnippet);
 }
 
 function addWikiSnippet (responseJSON) {
   const wikiContainer = document.querySelector('.wiki-container');
   wikiContainer.innerHTML = '';
-  responseJSON = responseJSON.splice(0, 3);
-  let title = responseJSON[1][0];
-  let description = responseJSON[2][0];
-  let link = responseJSON[3][0];
+  responseJSON = JSON.parse('{\"data\":' + responseJSON.slice(5, responseJSON.length-1) + '}');
+  let indexOfDisplayedItem = 0;
+  let title = responseJSON.data[1][indexOfDisplayedItem];
+  let description = responseJSON.data[2][indexOfDisplayedItem];
+  let link = responseJSON.data[3][indexOfDisplayedItem];
+  while (description == '') {
+    indexOfDisplayedItem ++;
+    title = responseJSON.data[1][indexOfDisplayedItem];
+    description = responseJSON.data[2][indexOfDisplayedItem];
+    link = responseJSON.data[3][indexOfDisplayedItem];
+  }
   let htmlContent = `<h3>${title}</h3>` +
                     `<p><a href="${link}">Wikipedia</a></p>` +
                     `<p>${description}</p>`;
-  wikiContainer.innerHTML += hrmlContent;
+  wikiContainer.innerHTML += htmlContent;
 }
