@@ -158,7 +158,7 @@ function addWikiSnippet (responseJSON) {
   let title = responseJSON.data[1][indexOfDisplayedItem];
   let description = responseJSON.data[2][indexOfDisplayedItem];
   let link = responseJSON.data[3][indexOfDisplayedItem];
-  const descriptionToAvoid = 'may refer to';
+  const descriptionToAvoid = 'may refer to:';
   while (description == '' || description.includes(descriptionToAvoid)) {
     indexOfDisplayedItem ++;
     title = responseJSON.data[1][indexOfDisplayedItem];
