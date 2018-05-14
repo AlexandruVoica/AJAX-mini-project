@@ -1,6 +1,6 @@
 {
   "name": "async-miniproject",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "This will be an exercise in handling async requests in JS using 3 different approaches:",
   "dependencies": {
     "connect": "^3.6.6",
