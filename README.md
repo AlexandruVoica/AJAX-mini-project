@@ -22,4 +22,4 @@ After all, I ended up using all 3 approaches specified above together with 3 dif
     ```
 I've written each async request almost 2 times and so it made me realize what the pros and cons of each approach is. For example, using XHR might pose a problem because of CORS limitations.
 
-My final conclusion is that jQuery is extremely easy to use and versatile.
+My final conclusion is that jQuery is extremely easy to use, versatile and still very much relevant.
