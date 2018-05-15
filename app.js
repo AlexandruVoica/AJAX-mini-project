@@ -1,3 +1,5 @@
+import { unsplashAPIKey, newsAPIKey, wikiAPIKey } from './apikeys';
+
 const searchForm = document.querySelector('#search-form');
 const searchField = document.querySelector('#search-field');
 // const resultsContainer = document.querySelector('.results-container');
@@ -20,7 +22,7 @@ window.onload = function () {
 // fetch data from APIs
 function fetchUnsplash (keyword) {
   const unsplashRequest = new XMLHttpRequest();
-  const unsplashClientID = '97b41745c7ab91c3caa42960e2f43ef7daad3921dec3510fe655aee5f4e7a040';
+  const unsplashClientID = unsplashAPIKey;
   const requestURL = `https://api.unsplash.com/search/photos?` +
                      `orientation=landscape&` +
                      `page=1&` +
@@ -66,7 +68,7 @@ function addPhoto () {
 
 // function fetchNews (keyword) {
 //   const newsRequest = new XMLHttpRequest();
-//   const apiKey = 'eadb5d437c064138a8fac60e25a1c51f';
+//   const apiKey = newsAPIKey;
 //   const requestURL = `http://newsapi.org/v2/everything?` +
 //                      `q=${keyword}&` +
 //                      `apiKey=${apiKey}`;
@@ -76,7 +78,7 @@ function addPhoto () {
 // }
 
 function fetchNews (keyword) {
-  const apiKey = 'eadb5d437c064138a8fac60e25a1c51f';
+  const apiKey = newsAPIKey;
   const requestURL = `http://newsapi.org/v2/everything?` +
                      `sources=cnn,buzzfeed,bbc-news&` +
                      `q=${keyword}&` +
