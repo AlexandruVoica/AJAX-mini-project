@@ -1,4 +1,4 @@
-import { unsplashAPIKey, newsAPIKey, wikiAPIKey } from './apikeys';
+import { unsplashAPIKey, newsAPIKey, wikiAPIKey } from './apikeys.js';
 
 const searchForm = document.querySelector('#search-form');
 const searchField = document.querySelector('#search-field');
@@ -54,7 +54,7 @@ function addPhoto () {
     // after photo is loaded, change the color of all links to the one associated with Unsplash photo
     const styleCSS = document.styleSheets[1];
     const rules = styleCSS.cssRules || styleCSS.rules;
-    for (rule of rules) {
+    for (let rule of rules) {
       if (rule.selectorText == 'a') {
         rule.style.color = photoColor;
       }
